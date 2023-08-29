@@ -33,6 +33,11 @@
         };
     in {
       packages.${system}.default = jumpcloud-pw;
+      apps.${system}.default = {
+        type = "app";
+        program = "${self.packages.${system}.default}/bin/jumpcloud-pw";
+      };
+      overlays.default = (prev: final: { inherit jumpcloud-pw; });
 
       devShells.${system}.default =
         pkgs.mkShell { inputsFor = [ self.packages.${system}.default ]; };
