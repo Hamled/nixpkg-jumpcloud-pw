@@ -31,5 +31,10 @@
             platforms = [ "x86_64-linux" ];
           };
         };
-    in { packages.${system}.default = jumpcloud-pw; };
+    in {
+      packages.${system}.default = jumpcloud-pw;
+
+      devShells.${system}.default =
+        pkgs.mkShell { inputsFor = [ self.packages.${system}.default ]; };
+    };
 }
